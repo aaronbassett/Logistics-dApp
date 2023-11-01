@@ -46,8 +46,8 @@ use pallet_transaction_payment::{ConstFeeMultiplier, CurrencyAdapter, Multiplier
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
-/// Import the template pallet.
-pub use pallet_template;
+/// Import the package pallet.
+pub use pallet_package;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -268,10 +268,18 @@ impl pallet_sudo::Config for Runtime {
 	type WeightInfo = pallet_sudo::weights::SubstrateWeight<Runtime>;
 }
 
-/// Configure the pallet-template in pallets/template.
-impl pallet_template::Config for Runtime {
+parameter_types! {
+	pub const DescriptionMaxLength: u32 = 256;
+	pub const ErnestDeposit: u128 = 10;
+}
+
+/// Configure the pallet-package in pallets/package.
+impl pallet_package::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
-	type WeightInfo = pallet_template::weights::SubstrateWeight<Runtime>;
+	type Currency = Balances;
+	type Slashed = ();
+	type DescriptionMaxLength = DescriptionMaxLength;
+	type ErnestDeposit = ErnestDeposit;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -284,8 +292,8 @@ construct_runtime!(
 		Balances: pallet_balances,
 		TransactionPayment: pallet_transaction_payment,
 		Sudo: pallet_sudo,
-		// Include the custom logic from the pallet-template in the runtime.
-		TemplateModule: pallet_template,
+		// Include the custom logic from the pallet-package in the runtime.
+		PackageModule: pallet_package,
 	}
 );
 
@@ -333,7 +341,6 @@ mod benches {
 		[pallet_balances, Balances]
 		[pallet_timestamp, Timestamp]
 		[pallet_sudo, Sudo]
-		[pallet_template, TemplateModule]
 	);
 }
 
