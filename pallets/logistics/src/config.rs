@@ -12,7 +12,9 @@ mod config {
 	>>::NegativeImbalance;
 
 	#[pallet::config]
-	pub trait Config: frame_system::Config {
+	pub trait Config:
+		frame_system::Config + pallet_carrier::Config + pallet_package::Config
+	{
 		/// Because this pallet emits events, it depends on the runtime's definition of an event.
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
@@ -29,9 +31,5 @@ mod config {
 		/// We don't want anyone storing the entirety of the Bee Movie script on-chain
 		#[pallet::constant]
 		type DescriptionMaxLength: Get<u32>;
-
-		/// Max Vec length for concluded packages
-		#[pallet::constant]
-		type MaxConcludedPackages: Get<u32>;
 	}
 }

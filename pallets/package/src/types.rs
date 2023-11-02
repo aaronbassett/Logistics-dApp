@@ -19,14 +19,6 @@ pub enum PackageStatus {
 }
 
 #[derive(Clone, Eq, PartialEq, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
-pub enum ProposalStatus {
-	Proposed,
-	Accepted,
-	Rejected,
-	Cancelled,
-}
-
-#[derive(Clone, Eq, PartialEq, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
 pub struct Dimensions {
 	pub length: u32,
 	pub width: u32,
@@ -36,15 +28,15 @@ pub struct Dimensions {
 #[derive(Clone, Eq, PartialEq, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
 #[scale_info(skip_type_params(T))]
 pub struct Package<T: Config> {
-	pub(super) id: PackageId,
-	pub(super) client: T::AccountId,
-	pub(super) carrier: Option<T::AccountId>,
-	pub(super) pickup: ThreeWordAddress,
-	pub(super) destination: ThreeWordAddress,
-	pub(super) requested_on: BlockNumberFor<T>,
-	pub(super) collected_on: Option<BlockNumberFor<T>>,
-	pub(super) delivered_on: Option<BlockNumberFor<T>>,
-	pub(super) status: PackageStatus,
+	pub id: PackageId,
+	pub client: T::AccountId,
+	pub carrier: Option<T::AccountId>,
+	pub pickup: ThreeWordAddress,
+	pub destination: ThreeWordAddress,
+	pub requested_on: BlockNumberFor<T>,
+	pub collected_on: Option<BlockNumberFor<T>>,
+	pub delivered_on: Option<BlockNumberFor<T>>,
+	pub status: PackageStatus,
 }
 
 impl<T: Config> Package<T> {

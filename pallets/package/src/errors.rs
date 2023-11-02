@@ -24,6 +24,8 @@ mod errors {
 		PackageInTransit,
 		/// Package is *not* In Transit
 		PackageNotInTransit,
+		/// Requested package is not valid for requested action
+		InvalidPackage,
 		/// Action attempted on package by carrier who is not assigned
 		InvalidCarrier,
 		/// Three Word Address format is invalid

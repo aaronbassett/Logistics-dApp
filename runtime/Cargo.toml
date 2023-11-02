@@ -53,6 +53,8 @@ frame-system-benchmarking = { version = "4.0.0-dev", default-features = false, g
 
 # Local Dependencies
 pallet-package = { version = "4.0.0-dev", default-features = false, path = "../pallets/package" }
+pallet-carrier = { version = "4.0.0-dev", default-features = false, path = "../pallets/carrier" }
+pallet-logistics = { version = "4.0.0-dev", default-features = false, path = "../pallets/logistics" }
 
 [build-dependencies]
 substrate-wasm-builder = { version = "5.0.0-dev", git = "https://github.com/paritytech/substrate.git", optional = true, branch = "polkadot-v1.0.0" }
@@ -75,6 +77,8 @@ std = [
 	"pallet-grandpa/std",
 	"pallet-sudo/std",
 	"pallet-package/std",
+	"pallet-carrier/std",
+	"pallet-logistics/std",
 	"pallet-timestamp/std",
 	"pallet-transaction-payment-rpc-runtime-api/std",
 	"pallet-transaction-payment/std",

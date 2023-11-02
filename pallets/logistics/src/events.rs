@@ -13,9 +13,9 @@ mod events {
 		PackageAssigned { client: T::AccountId, package: PackageId, carrier: T::AccountId },
 		/// Package collected by carrier [Client ID, Package ID, Carrier ID]
 		PackageCollected { client: T::AccountId, package: PackageId, carrier: T::AccountId },
-		/// Package has been delivered [Client Account ID, Package ID]
+		/// Package has been delivered [Client ID, Package ID]
 		PackageDelivered { client: T::AccountId, package: PackageId },
-		/// Package has been cancelled [Client Account ID, Package ID]
+		/// Package has been cancelled [Client ID, Package ID]
 		PackageCancelled { client: T::AccountId, package: PackageId },
 	}
 }

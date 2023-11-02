@@ -49,6 +49,12 @@ pub use sp_runtime::{Perbill, Permill};
 /// Import the package pallet.
 pub use pallet_package;
 
+/// Import the carrier pallet.
+pub use pallet_carrier;
+
+/// Import the logistics pallet.
+pub use pallet_logistics;
+
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -271,10 +277,26 @@ impl pallet_sudo::Config for Runtime {
 parameter_types! {
 	pub const DescriptionMaxLength: u32 = 256;
 	pub const ErnestDeposit: u128 = 10;
+	pub const MaxConcludedPackages: u32 = u32::MAX;
 }
 
 /// Configure the pallet-package in pallets/package.
 impl pallet_package::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Currency = Balances;
+	type Slashed = ();
+	type DescriptionMaxLength = DescriptionMaxLength;
+	type ErnestDeposit = ErnestDeposit;
+	type MaxConcludedPackages = MaxConcludedPackages;
+}
+
+/// Configure the pallet-carrier in pallets/carrier.
+impl pallet_carrier::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+}
+
+/// Configure the pallet-logistics in pallets/logistics.
+impl pallet_logistics::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type Currency = Balances;
 	type Slashed = ();
@@ -292,8 +314,10 @@ construct_runtime!(
 		Balances: pallet_balances,
 		TransactionPayment: pallet_transaction_payment,
 		Sudo: pallet_sudo,
-		// Include the custom logic from the pallet-package in the runtime.
+		// Include custom logic from pallets in the runtime.
 		PackageModule: pallet_package,
+		CarrierModule: pallet_carrier,
+		LogisticsModule: pallet_logistics,
 	}
 );
 
